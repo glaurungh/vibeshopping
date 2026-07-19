@@ -39,7 +39,22 @@ class UserNotFoundError(DomainError):
         super().__init__(f"User with email {email!r} not found")
 
 
+class InvalidTokenError(DomainError):
+    """Refresh-токен невалиден, истёк или пользователь не существует."""
+
+    def __init__(self) -> None:
+        super().__init__("Invalid or expired refresh token")
+
+
 # --- Права доступа к списку ---
+
+
+class ListNotFoundError(DomainError):
+    """Запрошенный список не существует (или недоступен пользователю)."""
+
+    def __init__(self, list_id: UUID) -> None:
+        self.list_id = list_id
+        super().__init__(f"List {list_id} not found")
 
 
 class NotListOwnerError(DomainError):
